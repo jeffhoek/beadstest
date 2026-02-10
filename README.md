@@ -311,4 +311,13 @@ bd doctor v0.49.6  ────────────────────�
 
 OK I should def be good to go now.
 
+Let me update the readme quickly...
+
+```
+gcam "update readme"
+Warning: Daemon took too long to start (>5s). Running in direct mode.
+  Hint: Run 'bd doctor' to diagnose daemon issues
+[main 81b14dd] update readme
+ 1 file changed, 12 insertions(+)
+```
 
