@@ -249,4 +249,54 @@ Import complete: 0 created, 0 updated
 ✓ Import complete
 ```
 
+```
+gcam "update readme"
+Warning: Daemon took too long to start (>5s). Running in direct mode.
+  Hint: Run 'bd doctor' to diagnose daemon issues
+[main e9bacf2] update readme
+ 1 file changed, 35 insertions(+)
+```
+
+```
+bd doctor --fix
+
+Fixable issues:
+  1. Sync Divergence: 1 sync divergence issue(s) detected
+  2. Git Working Tree: Uncommitted changes present
+  3. Git Upstream: Ahead of upstream by 1 commit(s)
+  4. Sync Branch Gitignore: issues.jsonl shows as modified (missing git index flags)
+
+This will attempt to fix 4 issue(s). Continue? (Y/n): Y
+
+Applying fixes...
+
+Fixing Sync Divergence...
+Import complete: 0 created, 0 updated
+Metadata updated (database already in sync with JSONL)
+  ✓ Fixed
+
+Fixing Git Working Tree...
+  ⚠ No automatic fix available for Git Working Tree
+  Manual fix: Commit or stash changes, then follow AGENTS.md: git pull --rebase && git push
+
+Fixing Git Upstream...
+  ⚠ No automatic fix available for Git Upstream
+  Manual fix: Run 'git push' (AGENTS.md: git pull --rebase && git push)
+
+Fixing Sync Branch Gitignore...
+  ✓ Set git index flags to hide .beads/*.jsonl from git status
+  ✓ Fixed
+
+Fix summary: 2 fixed, 0 errors
+
+bd doctor v0.49.6  ──────────────────────────────────────────  ✓ 76 passed  ⚠ 2 warnings  ✖ 0 errors
+
+  ⚠  1. Git Working Tree: Uncommitted changes present
+        M README.md
+        └─ Commit or stash changes, then follow AGENTS.md: git pull --rebase && git push
+  ⚠  2. Git Upstream: Ahead of upstream by 1 commit(s)
+        Branch: main, upstream: origin/main
+        └─ Run 'git push' (AGENTS.md: git pull --rebase && git push)
+```
+
 
