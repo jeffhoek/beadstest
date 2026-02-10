@@ -215,3 +215,38 @@ git status
     modified:   README.md
 ```
 
+Let's check `bd doctor`
+```
+bd doctor
+
+bd doctor v0.49.6  ──────────────────────────────────────────  ✓ 75 passed  ⚠ 3 warnings  ✖ 0 errors
+
+  ⚠  1. Daemon Auto-Sync: Daemon running without [auto-commit auto-push] (slows agent workflows)
+        With sync-branch configured, auto-commit and auto-push should be enabled
+        └─ Restart daemon: bd daemon stop . && bd daemon start
+  ⚠  2. Sync Divergence: 1 sync divergence issue(s) detected
+        JSONL is newer than last import (2026-02-10T15:58:52-05:00 > 2026-02-10T15:56:05-05:00)
+        └─ bd sync --import-only
+  ⚠  3. Sync Branch Gitignore: issues.jsonl shows as modified (missing git index flags)
+        sync.branch='beads-sync' configured but issues.jsonl appears in git status
+        └─ Run 'bd doctor --fix' or 'bd sync' to set git index flags
+```
+
+WTF? 
+```
+bd daemon stop . && bd daemon start
+Stopped daemon for /Users/jeff/Development/beadstest (PID 88352)
+Error: daemon already running (PID 88352)
+Use 'bd daemon stop' to stop it first
+```
+
+```
+bd sync --import-only
+Warning: Daemon took too long to start (>5s). Running in direct mode.
+  Hint: Run 'bd doctor' to diagnose daemon issues
+→ Importing from JSONL...
+Import complete: 0 created, 0 updated
+✓ Import complete
+```
+
+
