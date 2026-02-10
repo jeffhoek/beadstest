@@ -125,3 +125,35 @@ bd doctor v0.49.6  ────────────────────�
         └─ Run 'bd migrate sync beads-sync' to set up sync branch workflow
 ```
 
+Hmmmm warnings, but no errors. am I good to go?
+```
+bd doctor --fix
+
+Fixable issues:
+  1. Git Upstream: Ahead of upstream by 1 commit(s)
+  2. Sync Branch Config: sync-branch not configured
+
+This will attempt to fix 2 issue(s). Continue? (Y/n):
+
+Applying fixes...
+
+Fixing Git Upstream...
+  ⚠ No automatic fix available for Git Upstream
+  Manual fix: Run 'git push' (AGENTS.md: git pull --rebase && git push)
+
+Fixing Sync Branch Config...
+  ⚠ Add 'sync-branch: beads-sync' to .beads/config.yaml
+
+Fix summary: 0 fixed, 0 errors
+
+bd doctor v0.49.6  ──────────────────────────────────────────  ✓ 76 passed  ⚠ 2 warnings  ✖ 0 errors
+
+  ⚠  1. Git Upstream: Ahead of upstream by 1 commit(s)
+        Branch: main, upstream: origin/main
+        └─ Run 'git push' (AGENTS.md: git pull --rebase && git push)
+  ⚠  2. Sync Branch Config: sync-branch not configured
+        Multi-clone setups should configure sync-branch for safe data synchronization
+        └─ Run 'bd migrate sync beads-sync' to set up sync branch workflow
+```
+
+
