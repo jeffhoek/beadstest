@@ -184,4 +184,34 @@ bd doctor v0.49.6  ────────────────────�
         └─ Run 'bd migrate sync beads-sync' to set up sync branch workflow
 ```
 
+Ok let's run the beads-sync thing:
+```
+bd migrate sync beads-sync
+→ Setting up sync branch 'beads-sync'...
+  Creating orphan branch 'beads-sync' (no shared history)...
+→ Creating worktree at /Users/jeff/Development/beadstest/.git/beads-worktrees/beads-sync...
+→ Syncing current beads data to worktree...
+→ Committing initial state to sync branch...
+  Initial state committed to sync branch
+→ Setting sync.branch to 'beads-sync'...
+→ Pushing sync branch 'beads-sync' to remote...
+  Pushed 'beads-sync' to origin
+
+✓ Migration complete!
+
+  sync.branch: beads-sync
+  worktree: /Users/jeff/Development/beadstest/.git/beads-worktrees/beads-sync
+
+Next steps:
+  • 'bd sync' will now commit beads changes to the sync branch
+  • Your working branch stays clean of beads commits
+  • Other clones should also run 'bd migrate-sync beads-sync'
+```
+
+Now should be good, right?
+```
+git status
+	modified:   .beads/config.yaml
+    modified:   README.md
+```
 
