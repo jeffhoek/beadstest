@@ -156,4 +156,32 @@ bd doctor v0.49.6  ────────────────────�
         └─ Run 'bd migrate sync beads-sync' to set up sync branch workflow
 ```
 
+I'll commit and push
+```
+gcam ...
+ggpush
+```
+
+```
+bd doctor --fix
+
+Fixable issues:
+  1. Sync Branch Config: sync-branch not configured
+
+This will attempt to fix 1 issue(s). Continue? (Y/n): Y
+
+Applying fixes...
+
+Fixing Sync Branch Config...
+  ⚠ Add 'sync-branch: beads-sync' to .beads/config.yaml
+
+Fix summary: 0 fixed, 0 errors
+
+bd doctor v0.49.6  ──────────────────────────────────────────  ✓ 77 passed  ⚠ 1 warnings  ✖ 0 errors
+
+  ⚠  1. Sync Branch Config: sync-branch not configured
+        Multi-clone setups should configure sync-branch for safe data synchronization
+        └─ Run 'bd migrate sync beads-sync' to set up sync branch workflow
+```
+
 
