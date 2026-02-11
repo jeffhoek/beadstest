@@ -330,4 +330,43 @@ Warning: Daemon took too long to start (>5s). Running in direct mode.
 ✨ No open issues
 ```
 
+let's see if claude code can help...
 
+```
+I tried to onboarding https://github.com/steveyegge/beads with this repo and took notes in the README.md. I keep hitting this error though: "Warning: Daemon took too long to start (>5s). Running in direct mode." Any idea what the problem is? 
+```
+```
+⏺ Found it. The daemon reports as "running" with PID 88352, but that
+   process doesn't actually exist — it's a stale PID file. The      
+  daemon crashed or was killed, but its PID file wasn't cleaned up. 
+  Every bd command tries to connect to the dead daemon, waits 5     
+  seconds, then falls back to direct mode.
+```
+```
+⏺ Now I see the full picture. The daemon process (PID 88352) is     
+  actually running, but its SQLite database connection is broken —  
+  the logs are spamming "sql: database is closed" every minute on   
+  health checks. The daemon is alive but brain-dead: it can't       
+  respond to client requests because its DB handle is gone. That's  
+  why every bd command waits 5s for a response, times out, and falls
+   back to direct mode.  
+
+Let's force-kill the zombie daemon and restart it cleanly:
+```
+```
+⏺ No more timeout warning. The fix worked.                          
+                                                                    
+  What happened: The daemon (PID 88352, started ~18 hours ago) lost 
+  its SQLite database connection at some point — likely due to the  
+  database file being modified out from under it during the bd      
+  doctor --fix / migration steps. The process stayed alive but      
+  couldn't do anything useful, so every bd command that tried to    
+  talk to it would time out after 5 seconds before falling back to  
+  direct mode.                                                      
+                                                                    
+  The fix was simply: bd daemon stop . followed by bd daemon start. 
+  The earlier attempt on line 239 of your README failed because you 
+  chained stop && start and the stop reported success before the    
+  process actually exited, causing start to see a "daemon already
+  running" conflict.
+```
