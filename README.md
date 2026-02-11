@@ -321,3 +321,13 @@ Warning: Daemon took too long to start (>5s). Running in direct mode.
  1 file changed, 12 insertions(+)
 ```
 
+
+```
+bd ready
+Warning: Daemon took too long to start (>5s). Running in direct mode.
+  Hint: Run 'bd doctor' to diagnose daemon issues
+
+✨ No open issues
+```
+
+
